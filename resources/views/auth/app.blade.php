@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 </head>
 
-<body>
+<body class="bg-light">
     <nav class="navbar navbar-expand-md navbar-dark bg-info shadow-sm">
         <div class="container">
             <span class="navbar-brand">

@@ -8,8 +8,7 @@
                 <img src="{{ asset('image/gears.png') }}" alt="アイコン画像" class="me-1" width="50" height="50">
                 <span class="h1">KaizenJob</span>
             </p>
-            <div class="card">
-                <div class="card-header">ユーザー登録</div>
+            <div class="card shadow">
                 @if (session('message'))
                 <div class="alert alert-info text-center alert-dismissible fade show" role="alert">
                     {{ session('message') }}
@@ -18,6 +17,9 @@
                 @endif
 
                 <div class="card-body">
+                    <div class="text-center mb-2">
+                        <p class="fs-3">ユーザー登録</p>
+                    </div>
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -71,12 +73,10 @@
                             </div>
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    登録
-                                </button>
-                            </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-outline-success px-4 fs-5">
+                                登録
+                            </button>
                         </div>
                     </form>
                 </div>
