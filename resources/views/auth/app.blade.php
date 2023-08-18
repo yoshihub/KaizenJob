@@ -27,7 +27,7 @@
 </head>
 
 <body class="bg-light">
-    <nav class="navbar navbar-expand-md navbar-dark bg-info shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow">
         <div class="container">
             <span class="navbar-brand">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-fill-up mb-2" viewBox="0 0 16 16">
