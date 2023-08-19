@@ -1,6 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
 </script>
 
 <template>
@@ -16,7 +17,7 @@ let token = document.querySelector('meta[name="csrf-token"]').getAttribute('cont
         <div class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                    Hello, John Doe
+                    アカウント関連
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -41,22 +42,22 @@ let token = document.querySelector('meta[name="csrf-token"]').getAttribute('cont
                 <div class="position-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/posts">
+                            <Link class="nav-link" :href="'/posts'">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
                                     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                                     <polyline points="9 22 9 12 15 12 15 22"></polyline>
                                 </svg>
-                                <span class="ml-2">Dashboard</span>
-                            </a>
+                                <span class="ml-2">投稿一覧</span>
+                            </Link>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <Link class="nav-link" :href="'/posts/create'">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
                                     <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
                                     <polyline points="13 2 13 9 20 9"></polyline>
                                 </svg>
-                                <span class="ml-2">Orders</span>
-                            </a>
+                                <span class="ml-2">投稿作成</span>
+                            </Link>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
@@ -147,4 +148,9 @@ let token = document.querySelector('meta[name="csrf-token"]').getAttribute('cont
 .sidebar .nav-link.active {
     color: #0d6efd;
 }
+
+#sidebar .nav-link:hover {
+    opacity: 0.8;
+}
+
 </style>
