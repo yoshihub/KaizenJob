@@ -1,6 +1,6 @@
 <script setup>
 import App from '@/Components/App.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head,Link } from '@inertiajs/vue3';
 
 defineProps({
     posts: Array
@@ -11,18 +11,29 @@ defineProps({
 <Head title="投稿一覧" />
 <App>
     <div class="row g-3">
+        <div v-if="$page.props.flash.message" class="col-9 mx-auto">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ $page.props.flash.message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
         <div class="col-md-6" v-for="post in posts" :key="post.id">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
                         <p class="card-title col-5">{{ post.title }}</p>
-                        <p class="col-3 ml-auto">{{ post.created_at }}</p>
+                        <p class="col-3 ms-auto">{{ post.created_at }}</p>
                     </div>
                     <p class="card-text">
                         {{ post.content }}
                     </p>
                     <div class="row">
-                        <a>詳細</a>
+                        <div class="col-3 ms-auto">
+                        <Link :href="route('posts.show', { id: post.id })"
+                        class="btn btn-primary px-3">
+                            詳細
+                        </Link>
+                        </div>
                     </div>
                 </div>
             </div>

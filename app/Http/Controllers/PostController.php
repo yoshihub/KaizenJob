@@ -20,8 +20,11 @@ class PostController extends Controller
         return Inertia::render('Posts/Create');
     }
 
-    public function show()
+    public function show(Post $post)
     {
+        return Inertia::render('Posts/Show', [
+            'post' => $post
+        ]);
     }
 
     public function store(Request $request)
@@ -32,6 +35,13 @@ class PostController extends Controller
         ]);
         Post::create($data);
 
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')->with('message', '登録しました');
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        return redirect()->route('posts.index')->with('message', '削除しました');
     }
 }

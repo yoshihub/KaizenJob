@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('posts', PostController::class);
+Route::resource('posts', PostController::class)->middleware('auth');
 
 // 登録処理
 Route::get('register', [RegisterController::class, 'index'])->name('register');
