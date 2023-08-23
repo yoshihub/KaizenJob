@@ -1,10 +1,15 @@
 <script setup>
 import App from '@/Components/App.vue';
 import { Head,Link } from '@inertiajs/vue3';
+import dayjs from 'dayjs';
 
 defineProps({
     posts: Array
 })
+
+const formatDate = (date) => {
+    return dayjs(date).format('YYYY-MM-DD HH:mm');
+}
 </script>
 
 <template>
@@ -22,7 +27,9 @@ defineProps({
                 <div class="card-body">
                     <div class="row">
                         <p class="card-title col-5">{{ post.title }}</p>
-                        <p class="col-3 ms-auto">{{ post.created_at }}</p>
+                        <p class="col-3 ms-auto">
+                            {{ formatDate(post.created_at) }}
+                        </p>
                     </div>
                     <p class="card-text">
                         {{ post.content }}
