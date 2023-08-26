@@ -13,7 +13,7 @@ const formatDate = (date) => {
 </script>
 
 <template>
-<Head title="投稿一覧" />
+<Head title="投稿一覧"/>
 <App>
     <div class="row g-3">
         <div v-if="$page.props.flash.message" class="col-9 mx-auto">

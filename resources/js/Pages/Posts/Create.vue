@@ -17,7 +17,6 @@ const form = ref({
 const handleSubmit = () => {
     router.post('/posts', form.value);
 };
-console.log()
 </script>
 
 <template>

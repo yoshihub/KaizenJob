@@ -10,16 +10,19 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\PasswordResetConfirmationsController;
-
-
-
-
+use App\Http\Controllers\PasswordUpdateController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('posts', PostController::class)->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+    Route::resource('posts', PostController::class);
+    Route::resource('profile', ProfileController::class)->only(['index', 'create', 'store']);
+    Route::get('password_update', [PasswordUpdateController::class, 'index']);
+    Route::post('password_update', [PasswordUpdateController::class, 'store']);
+});
 
 // 登録処理
 Route::get('register', [RegisterController::class, 'index'])->name('register');

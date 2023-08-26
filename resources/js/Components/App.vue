@@ -22,7 +22,11 @@ let token = document.querySelector('meta[name="csrf-token"]').getAttribute('cont
                     </span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li>
+                        <Link class="dropdown-item" href="/profile">
+                            プロフィール
+                        </Link>
+                    </li>
                     <li><a class="dropdown-item" href="#">Messages</a></li>
                     <li>
                         <a class="dropdown-item" onclick="event.preventDefault();
