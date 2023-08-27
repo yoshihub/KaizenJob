@@ -21,7 +21,7 @@ const submitFunction = () => {
 <template>
     <Head title="パスワード変更" />
     <App>
-        <BackButton/>
+        <BackButton :url="'/profile'"/>
         <div class="row">
             <div class="col-8 mx-auto mt-3">
                 <h2>パスワード変更</h2>

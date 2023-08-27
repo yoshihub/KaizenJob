@@ -26,6 +26,6 @@ class ProfileController extends Controller
         $user = Auth::user();
         $user->update($request->all());
 
-        return Inertia::render('Profiles/Index');
+        return redirect()->route('profile.index')->with('success', 'プロフィールを変更しました');
     }
 }

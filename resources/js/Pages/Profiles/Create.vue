@@ -22,7 +22,7 @@ const submitFunction = () => {
 <template>
 <Head title="プロフィール編集"/>
 <App>
-    <BackButton/>
+    <BackButton :url="'/profile'"/>
     <div class="row">
     <div class="col-8 mx-auto mt-3">
         <h2>プロフィール編集</h2>

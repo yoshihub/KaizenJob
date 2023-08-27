@@ -1,27 +1,24 @@
 <script setup>
 import App from '@/Components/App.vue';
+import { useFlashToast } from '@/useFlashToast.js';
 import { Head,Link } from '@inertiajs/vue3';
 import dayjs from 'dayjs';
 
 defineProps({
     posts: Array
-})
+});
 
 const formatDate = (date) => {
     return dayjs(date).format('YYYY-MM-DD HH:mm');
 }
+
+useFlashToast();
 </script>
 
 <template>
 <Head title="投稿一覧"/>
 <App>
     <div class="row g-3">
-        <div v-if="$page.props.flash.message" class="col-9 mx-auto">
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                {{ $page.props.flash.message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </div>
         <div class="col-md-6" v-for="post in posts" :key="post.id">
             <div class="card">
                 <div class="card-body">

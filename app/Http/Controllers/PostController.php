@@ -35,13 +35,13 @@ class PostController extends Controller
         ]);
         Post::create($data);
 
-        return redirect()->route('posts.index')->with('message', '登録しました');
+        return redirect()->route('posts.index')->with('success', '登録しました');
     }
 
     public function destroy(Post $post)
     {
         $post->delete();
 
-        return redirect()->route('posts.index')->with('message', '削除しました');
+        return redirect()->route('posts.index')->with('success', '削除しました');
     }
 }

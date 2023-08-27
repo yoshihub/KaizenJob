@@ -20,5 +20,7 @@ class PasswordUpdateController extends Controller
     {
         $user = Auth::user();
         $user->update(['password' => Hash::make($request->password)]);
+
+        return redirect()->route('profile.index')->with('success', 'パスワードを変更しました');
     }
 }

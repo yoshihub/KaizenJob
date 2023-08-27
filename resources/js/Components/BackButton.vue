@@ -1,7 +1,13 @@
 <script setup>
+import { router } from '@inertiajs/vue3';
+
+const props = defineProps({
+    url:String
+});
+
 const goBack = () => {
-    window.history.back();
-}
+    router.visit(props.url);
+};
 </script>
 
 <template>

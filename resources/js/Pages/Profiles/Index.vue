@@ -1,7 +1,9 @@
 <script setup>
 import App from '@/Components/App.vue';
 import { Head, Link } from '@inertiajs/vue3';
+import { useFlashToast } from '@/useFlashToast.js';
 
+useFlashToast();
 </script>
 
 <template>
