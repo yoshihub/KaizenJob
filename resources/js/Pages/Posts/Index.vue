@@ -1,7 +1,7 @@
 <script setup>
 import App from '@/Components/App.vue';
 import { useFlashToast } from '@/useFlashToast.js';
-import { Head,Link } from '@inertiajs/vue3';
+import { Head,Link,router } from '@inertiajs/vue3';
 import dayjs from 'dayjs';
 
 defineProps({
@@ -10,6 +10,13 @@ defineProps({
 
 const formatDate = (date) => {
     return dayjs(date).format('YYYY-MM-DD HH:mm');
+}
+
+const deleteConfirm = id => {
+    router.delete(`/posts/${id}`, {
+        onBefore: () => confirm('本当に削除しますか？'),
+        preserveState: false,
+    })
 }
 
 useFlashToast();
@@ -24,11 +31,22 @@ useFlashToast();
                 <div class="card-body">
                     <div class="row">
                         <p class="card-title col-5">{{ post.title }}</p>
-                        <p class="col-3 ms-auto">
+                        <p class="col-auto ms-auto">
                             {{ formatDate(post.created_at) }}
                         </p>
+                        <div class="dropdown col-auto ms-auto">
+                            <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                <i class="fa-solid fa-ellipsis-vertical"
+                                style="font-size: 17px;"></i>
+                        </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><Link class="dropdown-item" :href="`/posts/${post.id}/edit`">編集</Link></li>
+                                <li><a class="dropdown-item"
+                                    @click="deleteConfirm(post.id)">削除</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <p class="card-text">
+                    <p class="card-text textarea-enter">
                         {{ post.content }}
                     </p>
                     <div class="row">
@@ -46,3 +64,16 @@ useFlashToast();
 </App>
 
 </template>
+
+<style scoped>
+.dropdown-toggle {
+    background: none;
+    border: none;
+}
+.dropdown-toggle::after {
+    display: none;
+}
+.textarea-enter{
+    white-space: pre-line;
+}
+</style>

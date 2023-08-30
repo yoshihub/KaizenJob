@@ -33,9 +33,32 @@ class PostController extends Controller
             'title' => 'required|string|max:5',
             'content' => 'required|string|max:500',
         ]);
+
         Post::create($data);
 
         return redirect()->route('posts.index')->with('success', '登録しました');
+    }
+
+    public function edit(Post $post)
+    {
+        return Inertia::render('Posts/Edit', [
+            'post' => $post
+        ]);
+    }
+
+    public function update(Request $request, Post $post)
+    {
+        $data = $request->validate([
+            'title' => 'required|string|max:5',
+            'content' => 'required|string|max:500',
+        ]);
+
+        $post->update([
+            'title' => $request->title,
+            'content' => $request->content,
+        ]);
+
+        return redirect()->route('posts.index')->with('success', '更新しました');
     }
 
     public function destroy(Post $post)
