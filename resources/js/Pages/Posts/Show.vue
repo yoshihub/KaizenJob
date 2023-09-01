@@ -2,10 +2,14 @@
 import App from '@/Components/App.vue';
 import BackButton from '@/Components/BackButton.vue';
 import { Head, router, Link } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { useFlashToast } from '@/useFlashToast.js';
+import dayjs from 'dayjs';
 
 
 const props = defineProps({
     post: Object,
+    errors: Object,
 })
 
 const deleteConfirm = id => {
@@ -14,6 +18,20 @@ const deleteConfirm = id => {
     })
 }
 
+const form = ref({
+    comment: '',
+    post_id: props.post.id,
+});
+
+const handleSubmit = () => {
+    router.post('/post_comments', form.value, { preserveState: false });
+};
+
+const formatDate = (date) => {
+    return dayjs(date).format('YYYY-MM-DD HH:mm');
+}
+
+useFlashToast();
 </script>
 
 <template>
@@ -49,6 +67,40 @@ const deleteConfirm = id => {
 </div>
 </div>
 </div>
+
+<h5 class="mt-2">コメント</h5>
+<div class="row">
+<div class="col-12">
+<div class="card">
+<div class="card-body">
+
+    <div class="card mb-2" v-for="post_comment in props.post.post_comments" :key="post_comment.id">
+        <p class="ps-3 pt-2"><span class="fw-bold">{{ post_comment.user.name }}</span><small class="ms-4">{{ formatDate(post_comment.created_at) }}</small></p>
+        <div class="card-body pt-0">
+            <p class="card-text textarea-enter">{{ post_comment.comment }}</p>
+        </div>
+    </div>
+
+    <form method="post" @submit.prevent="handleSubmit">
+        <div class="mb-3">
+            <textarea type="text" class="form-control" name="comment" placeholder="コメントを入力してください" v-model="form.comment" rows="4">
+            </textarea>
+            <div v-if="errors.comment" class="error">
+                {{ errors.comment }}
+            </div>
+        </div>
+
+        <div class="text-end pt-0">
+            <button type="submit" class="btn btn-primary">
+                コメント
+            </button>
+        </div>
+    </form>
+
+</div>
+</div>
+</div>
+</div>
 </App>
 </template>
 
@@ -62,5 +114,8 @@ const deleteConfirm = id => {
 }
 .textarea-enter{
     white-space: pre-line;
+}
+.error {
+    color: red;
 }
 </style>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -23,18 +24,22 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return Inertia::render('Posts/Show', [
-            'post' => $post
+            'post' => $post->load('postComments.user')
         ]);
     }
 
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $request->validate([
             'title' => 'required|string|max:5',
             'content' => 'required|string|max:500',
         ]);
 
-        Post::create($data);
+        Post::create([
+            'user_id' => Auth::id(),
+            'title' => $request->title,
+            'content' => $request->content,
+        ]);
 
         return redirect()->route('posts.index')->with('success', '登録しました');
     }

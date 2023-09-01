@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\PasswordResetConfirmationsController;
 use App\Http\Controllers\PasswordUpdateController;
+use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
@@ -22,6 +23,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('profile', ProfileController::class)->only(['index', 'create', 'store']);
     Route::get('password_update', [PasswordUpdateController::class, 'index']);
     Route::post('password_update', [PasswordUpdateController::class, 'store']);
+    Route::resource('post_comments', PostCommentController::class);
 });
 
 // 登録処理
