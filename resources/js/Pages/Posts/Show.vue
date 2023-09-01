@@ -73,16 +73,8 @@ useFlashToast();
 <div class="col-12">
 <div class="card">
 <div class="card-body">
-
-    <div class="card mb-2" v-for="post_comment in props.post.post_comments" :key="post_comment.id">
-        <p class="ps-3 pt-2"><span class="fw-bold">{{ post_comment.user.name }}</span><small class="ms-4">{{ formatDate(post_comment.created_at) }}</small></p>
-        <div class="card-body pt-0">
-            <p class="card-text textarea-enter">{{ post_comment.comment }}</p>
-        </div>
-    </div>
-
     <form method="post" @submit.prevent="handleSubmit">
-        <div class="mb-3">
+        <div class="mb-1">
             <textarea type="text" class="form-control" name="comment" placeholder="コメントを入力してください" v-model="form.comment" rows="4">
             </textarea>
             <div v-if="errors.comment" class="error">
@@ -90,12 +82,20 @@ useFlashToast();
             </div>
         </div>
 
-        <div class="text-end pt-0">
+        <div class="text-end">
             <button type="submit" class="btn btn-primary">
-                コメント
+                コメントする
             </button>
         </div>
     </form>
+
+    <h4>コメント一覧</h4>
+    <div class="card mb-2" v-for="post_comment in props.post.post_comments" :key="post_comment.id">
+        <p class="ps-3 pt-2"><span class="fw-bold">{{ post_comment.user.name }}</span><small class="ms-4">{{ formatDate(post_comment.created_at) }}</small></p>
+        <div class="card-body pt-0">
+            <p class="card-text textarea-enter">{{ post_comment.comment }}</p>
+        </div>
+    </div>
 
 </div>
 </div>
