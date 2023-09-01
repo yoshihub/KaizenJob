@@ -21,7 +21,7 @@ class RegisterConfirmationsController extends Controller
         if (!empty($responseMessage['message'])) {
             return redirect('/register')->with('message', $responseMessage['message']);
         } else {
-            return redirect('/register')->with('message', 'ユーザー登録が完了しました。');
+            return redirect('/login')->with('message', 'ユーザー登録が完了しました。');
         }
     }
 }
