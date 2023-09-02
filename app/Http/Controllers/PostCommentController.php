@@ -26,6 +26,19 @@ class PostCommentController extends Controller
         return redirect()->route('posts.show', ['post' => $post->id])->with('success', 'コメントしました');
     }
 
+    public function update(Request $request, PostComment $postComment)
+    {
+        $request->validate([
+            'comment' => 'required|string|max:200',
+        ]);
+
+        $postComment->update([
+            'comment' => $request->comment,
+        ]);
+
+        return redirect()->route('posts.show', ['post' => $postComment->post_id])->with('success', 'コメントを変更しました');
+    }
+
     public function destroy(PostComment $postComment)
     {
         $postComment->delete();

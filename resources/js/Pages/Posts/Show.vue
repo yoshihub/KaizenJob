@@ -12,6 +12,26 @@ const props = defineProps({
     errors: Object,
 })
 
+const selectedComment = ref({});
+const selectedCommentCopy = ref({ ...selectedComment.value });
+
+const selectComment = (comment) => {
+    selectedComment.value = comment;
+    selectedCommentCopy.value = { ...selectedComment.value };
+    var myModal = new bootstrap.Modal(document.getElementById('editCommentModal'));
+    myModal.show();
+};
+
+const updateComment = () => {
+    router.put(`/post_comments/${selectedCommentCopy.value.id}`,
+    {'comment': selectedCommentCopy.value.comment },
+    { preserveState: false ,preserveScroll: true });
+
+    var myModalEl = document.getElementById('editCommentModal');
+    var myModal = bootstrap.Modal.getInstance(myModalEl);
+    myModal.hide();
+};
+
 const deleteConfirm = id => {
     router.delete(`/posts/${id}`, {
         onBefore: () => confirm('本当に削除しますか？')
@@ -22,6 +42,7 @@ const deleteComment = id => {
     router.delete(`/post_comments/${id}`, {
         onBefore: () => confirm('本当に削除しますか？'),
         preserveState: false,
+        preserveScroll: true,
     })
 }
 
@@ -100,7 +121,9 @@ useFlashToast();
         <p class="ps-3 pt-2">
             <span class="fw-bold">{{ post_comment.user.name }}</span>
             <span v-if="post_comment.user_id === $page.props.auth.user.id">
-                <Link><i class="fa-solid fa-pen ms-4" style="color: #80d270;"></i></Link>
+                <a @click="selectComment(post_comment)" style="cursor:pointer">
+                    <i class="fa-solid fa-pen ms-4" style="color: #80d270;"></i>
+                </a>
                 <a @click="deleteComment(post_comment.id)" style="cursor:pointer">
                     <i class="fa-solid fa-trash-can ms-2" style="color: #80d270;"></i>
                 </a>
@@ -110,6 +133,25 @@ useFlashToast();
         <div class="card-body pt-0">
             <p class="card-text textarea-enter">{{ post_comment.comment }}</p>
         </div>
+    </div>
+
+    <!-- 編集モーダル -->
+    <div class="modal fade" id="editCommentModal" tabindex="-1" aria-labelledby="editCommentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="editCommentModalLabel">コメントを編集</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <textarea class="form-control" v-model="selectedCommentCopy.comment" rows="5"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+            <button type="button" class="btn btn-primary" @click="updateComment">更新</button>
+        </div>
+        </div>
+    </div>
     </div>
 
 </div>
