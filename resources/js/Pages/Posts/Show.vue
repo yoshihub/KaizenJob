@@ -13,7 +13,7 @@ const props = defineProps({
 })
 
 const selectedComment = ref({});
-const selectedCommentCopy = ref({ ...selectedComment.value });
+const selectedCommentCopy = ref({});
 
 const selectComment = (comment) => {
     selectedComment.value = comment;
