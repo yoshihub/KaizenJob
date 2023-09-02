@@ -18,6 +18,13 @@ const deleteConfirm = id => {
     })
 }
 
+const deleteComment = id => {
+    router.delete(`/post_comments/${id}`, {
+        onBefore: () => confirm('本当に削除しますか？'),
+        preserveState: false,
+    })
+}
+
 const form = ref({
     comment: '',
     post_id: props.post.id,
@@ -43,9 +50,10 @@ useFlashToast();
 <div class="col-12">
 <div class="card">
 <div class="card-body">
-    <div class="row">
-        <span class="col-3 m-0 p-2">タイトル</span>
-        <div class="dropdown col-auto ms-auto">
+    <div class="d-flex justify-content-end">
+    <div class="d-flex mb-2">
+        <span class="me-4">{{ formatDate(props.post.created_at) }}</span>
+        <div class="dropdown">
             <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
                 <i class="fa-solid fa-ellipsis-vertical"
                 style="font-size: 17px;"></i>
@@ -57,11 +65,12 @@ useFlashToast();
             </ul>
         </div>
     </div>
-
-    <hr class="mt-0">
-    <p>{{ props.post.title }}</p>
-    <p class="m-0 p-2">改善内容</p>
-    <hr class="mt-0">
+    </div>
+    <p>投稿者：{{ $page.props.auth.user.name }}</p>
+    <hr>
+    <p>タイトル：{{ props.post.title }}</p>
+    <hr>
+    <p>改善内容</p>
     <p class="textarea-enter">{{ props.post.content }}</p>
 </div>
 </div>
@@ -74,24 +83,30 @@ useFlashToast();
 <div class="card">
 <div class="card-body">
     <form method="post" @submit.prevent="handleSubmit">
-        <div class="mb-1">
-            <textarea type="text" class="form-control" name="comment" placeholder="コメントを入力してください" v-model="form.comment" rows="4">
-            </textarea>
-            <div v-if="errors.comment" class="error">
-                {{ errors.comment }}
-            </div>
-        </div>
-
-        <div class="text-end">
-            <button type="submit" class="btn btn-primary">
-                コメントする
+        <div class="mb-1 position-relative">
+            <textarea type="text" class="form-control" name="comment" placeholder="コメントを入力してください" v-model="form.comment" rows="4" style="padding-right: 50px;"></textarea>
+            <button type="submit" class="btn btn-success position-absolute bottom-0 end-0 mb-2 me-3">
+                <i class="fa-solid fa-paper-plane"></i>
             </button>
+        </div>
+        <div v-if="errors.comment" class="error">
+            {{ errors.comment }}
         </div>
     </form>
 
+
     <h4>コメント一覧</h4>
     <div class="card mb-2" v-for="post_comment in props.post.post_comments" :key="post_comment.id">
-        <p class="ps-3 pt-2"><span class="fw-bold">{{ post_comment.user.name }}</span><small class="ms-4">{{ formatDate(post_comment.created_at) }}</small></p>
+        <p class="ps-3 pt-2">
+            <span class="fw-bold">{{ post_comment.user.name }}</span>
+            <span v-if="post_comment.user_id === $page.props.auth.user.id">
+                <Link><i class="fa-solid fa-pen ms-4" style="color: #80d270;"></i></Link>
+                <a @click="deleteComment(post_comment.id)" style="cursor:pointer">
+                    <i class="fa-solid fa-trash-can ms-2" style="color: #80d270;"></i>
+                </a>
+            </span>
+            <small class="ms-5">{{ formatDate(post_comment.created_at) }}</small>
+        </p>
         <div class="card-body pt-0">
             <p class="card-text textarea-enter">{{ post_comment.comment }}</p>
         </div>

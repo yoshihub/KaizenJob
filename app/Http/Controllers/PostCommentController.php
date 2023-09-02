@@ -25,4 +25,11 @@ class PostCommentController extends Controller
 
         return redirect()->route('posts.show', ['post' => $post->id])->with('success', 'コメントしました');
     }
+
+    public function destroy(PostComment $postComment)
+    {
+        $postComment->delete();
+
+        return redirect()->route('posts.show', ['post' => $postComment->post_id])->with('success', '削除しました');
+    }
 }
