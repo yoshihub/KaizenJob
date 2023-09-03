@@ -1,12 +1,25 @@
 <script setup>
 import App from '@/Components/App.vue';
 import { useFlashToast } from '@/useFlashToast.js';
-import { Head,Link,router } from '@inertiajs/vue3';
+import { Head,Link,router} from '@inertiajs/vue3';
+import { ref } from 'vue';
 import dayjs from 'dayjs';
 
 defineProps({
     posts: Array
 });
+
+const searchParams = ref({
+    keyword: null,
+    date_from: null,
+    date_to: null,
+});
+
+const search = () => {
+    router.get('/posts',
+    searchParams.value,
+    {replace: true,preserveState: true});
+};
 
 const formatDate = (date) => {
     return dayjs(date).format('YYYY-MM-DD HH:mm');
@@ -25,6 +38,17 @@ useFlashToast();
 <template>
 <Head title="投稿一覧"/>
 <App>
+    <div>
+        <form @submit.prevent="search">
+            <label for="keyword">キーワード</label>
+            <input type="text" name="keyword" id="keyword" v-model="searchParams.keyword">
+            <label>日付</label>
+            <input type="date" name="date_from" v-model="searchParams.date_from">
+            <span>〜</span>
+            <input type="date" name="date_to" v-model="searchParams.date_to">
+            <button class="btn btn-primary">検索</button>
+        </form>
+    </div>
     <div class="row g-3">
         <div class="col-md-6" v-for="post in posts" :key="post.id">
             <div class="card" style="height: 200px;">

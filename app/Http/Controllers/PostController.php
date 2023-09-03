@@ -3,16 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $query = Post::query();
+
+        if (isset($request->keyword)) {
+            $query = $query
+                ->where('title', 'like', '%' . $request->keyword . '%')
+                ->where('content', 'like', '%' . $request->keyword . '%');
+        }
+
+        if (isset($request->date_from)) {
+            $dateFrom = Carbon::parse($request->date_from);
+            $query->where('created_at', '>=', $dateFrom->startOfDay());
+        }
+
+        if (isset($request->date_to)) {
+            $dateTo = Carbon::parse($request->date_to);
+            $query->where('created_at', '<=', $dateTo->endOfDay());
+        }
+
+        $posts = $query->get();
+
         return Inertia::render('Posts/Index', [
-            'posts' => Post::all()
+            'posts' => $posts
         ]);
     }
 
