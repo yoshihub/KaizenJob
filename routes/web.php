@@ -26,14 +26,19 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('post_comments', PostCommentController::class);
 });
 
+
 // 登録処理
 Route::get('register', [RegisterController::class, 'index'])->name('register');
 Route::post('register', [RegisterController::class, 'store'])->name('register');
 Route::get('register_confirmations', [RegisterConfirmationsController::class, 'index']);
+
 // ログイン・ログアウト処理
-Route::get('login', [LoginController::class, 'index'])->name('login');
-Route::post('login', [LoginController::class, 'store'])->name('login');
+Route::middleware(['guest'])->group(function () {
+    Route::get('login', [LoginController::class, 'index'])->name('login');
+    Route::post('login', [LoginController::class, 'store'])->name('login');
+});
 Route::post('logout', [LogoutController::class, 'store'])->name('logout');
+
 // パスワードリセット
 Route::resource('password_reset', PasswordResetController::class)->only(['create', 'store']);
 Route::get('password_reset_confirmations', [PasswordResetConfirmationsController::class, 'index']);

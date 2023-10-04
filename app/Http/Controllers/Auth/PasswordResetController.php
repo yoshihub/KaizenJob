@@ -28,9 +28,9 @@ class PasswordResetController extends Controller
         }
 
         if (!empty($responseMessage['message'])) {
-            return redirect('/register')->with('message', $responseMessage['message']);
+            return redirect('/login')->with('message', $responseMessage['message']);
         } else {
-            return redirect('/register')->with('message', '登録済みメールアドレスの場合、数分以内にパスワード再設定用のメールが送られます。');
+            return redirect('/login')->with('message', '登録済みメールアドレスの場合、数分以内にパスワード再設定用のメールが送られます。');
         }
     }
 }

@@ -39,9 +39,9 @@ class PasswordResetConfirmationsController extends Controller
         }
 
         if (!empty($responseMessage['message'])) {
-            return redirect('/register')->with('message', $responseMessage['message']);
+            return redirect('/login')->with('message', $responseMessage['message']);
         } else {
-            return redirect('/register')->with('message', 'パスワードの再設定が完了しました。');
+            return redirect('/login')->with('message', 'パスワードの再設定が完了しました。');
         }
     }
 }
