@@ -30,7 +30,9 @@ class RegisterRequest extends FormRequest
             'password' => [
                 'required',
                 'confirmed',
-                Password::min(8)->letters()->numbers(),
+                'min:8',
+                'regex:/[a-zA-Z]/',
+                'regex:/\d/',
             ],
             'password_confirmation' => 'required',
         ];
@@ -46,7 +48,7 @@ class RegisterRequest extends FormRequest
     public function message()
     {
         return [
-            'password.confirmed' => 'パスワードとパスワード確認が一致しません。'
+            'password.confirmed' => 'パスワードとパスワード確認が一致しません。',
         ];
     }
 }

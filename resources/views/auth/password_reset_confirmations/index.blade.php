@@ -14,14 +14,14 @@
                     <div class="row">
                         <label for="password" class="col-md-3 col-form-label">パスワード</label>
                         <div class="col-md-8">
-                            <input type="password" name="password" class="form-control" placeholder="新しいパスワードを入力">
+                            <input type="password" name="password" class="form-control" placeholder="8文字以上の英数字を入力">
                         </div>
                     </div>
 
                     <div class="row mt-3">
                         <label for="password_confirmation" class="col-md-3 col-form-label">パスワード確認</label>
                         <div class="col-md-8">
-                            <input type="password" name="password_confirmation" class="form-control" placeholder="確認用パスワードを入力">
+                            <input type="password" name="password_confirmation" class="form-control" placeholder="8文字以上の英数字を入力">
                         </div>
                     </div>
 

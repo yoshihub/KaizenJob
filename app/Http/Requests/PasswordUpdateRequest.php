@@ -23,7 +23,9 @@ class PasswordUpdateRequest extends FormRequest
             'password' => [
                 'required',
                 'confirmed',
-                Password::min(8)->letters()->numbers(),
+                'min:8',
+                'regex:/[a-zA-Z]/',
+                'regex:/\d/',
             ],
             'password_confirmation' => 'required',
         ];

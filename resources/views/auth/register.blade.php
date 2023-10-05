@@ -55,7 +55,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-end">パスワード</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="8文字以上の英数字を入力">
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -69,11 +69,11 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-end">パスワード確認</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="8文字以上の英数字を入力">
                             </div>
                         </div>
 
-                        <div class="text-center">
+                        <div class=" text-center">
                             <button type="submit" class="btn btn-outline-success px-4 fs-5">
                                 登録
                             </button>
