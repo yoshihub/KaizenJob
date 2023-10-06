@@ -14,10 +14,6 @@ use App\Http\Controllers\PasswordUpdateController;
 use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\ProfileController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::middleware(['auth'])->group(function () {
     Route::resource('posts', PostController::class);
     Route::resource('profile', ProfileController::class)->only(['index', 'create', 'store']);
@@ -27,17 +23,17 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-// 登録処理
-Route::get('register', [RegisterController::class, 'index'])->name('register');
-Route::post('register', [RegisterController::class, 'store'])->name('register');
-Route::get('register_confirmations', [RegisterConfirmationsController::class, 'index']);
-
 // ログイン・ログアウト処理
 Route::middleware(['guest'])->group(function () {
     Route::get('login', [LoginController::class, 'index'])->name('login');
     Route::post('login', [LoginController::class, 'store'])->name('login');
 });
 Route::post('logout', [LogoutController::class, 'store'])->name('logout');
+
+// 登録処理
+Route::get('register', [RegisterController::class, 'index'])->name('register');
+Route::post('register', [RegisterController::class, 'store'])->name('register');
+Route::get('register_confirmations', [RegisterConfirmationsController::class, 'index']);
 
 // パスワードリセット
 Route::resource('password_reset', PasswordResetController::class)->only(['create', 'store']);

@@ -51,14 +51,11 @@ useFlashToast();
     </div>
     <div class="row g-3">
         <div class="col-md-6" v-for="post in posts" :key="post.id">
-            <div class="card" style="height: 200px;">
+            <div class="card" style="height: 180px;">
                 <div class="card-body d-flex flex-column justify-content-between">
                     <div>
                         <div class="row">
-                            <p class="card-title col-5">{{ post.title }}</p>
-                            <p class="col-auto ms-auto">
-                                {{ formatDate(post.created_at) }}
-                            </p>
+                            <p class="card-title col-auto">{{ post.title }}</p>
                             <div class="dropdown col-auto ms-auto">
                                 <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                     <i class="fa-solid fa-ellipsis-vertical" style="font-size: 17px;"></i>
@@ -73,13 +70,14 @@ useFlashToast();
                             {{ post.content }}
                         </p>
                     </div>
-                    <div class="row mt-auto">
-                        <div class="col-3 ms-auto">
-                            <Link :href="route('posts.show', { id: post.id })" class="btn btn-primary px-3">
-                                詳細
-                            </Link>
-                        </div>
-                    </div>
+                </div>
+                <div class="d-flex justify-content-end mb-1 me-2">
+                    <p class="col-auto ms-auto me-3">
+                        {{ formatDate(post.created_at) }}
+                    </p>
+                    <Link :href="route('posts.show', { id: post.id })" class="btn btn-info text-white">
+                        詳細
+                    </Link>
                 </div>
             </div>
         </div>
