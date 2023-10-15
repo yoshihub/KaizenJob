@@ -1,7 +1,9 @@
-## About Laravel
+## アプリケーション概要
 
 アプリ名:KaizenJob
+
 アプリの使用用途：社内の課題や改善方法についてコミュニケーションを取るツール
+
 アプリのログイン画面:https://kaizen-job.com/login
 
 ## 使用技術
