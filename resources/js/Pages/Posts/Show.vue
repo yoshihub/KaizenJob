@@ -52,7 +52,7 @@ const form = ref({
 });
 
 const handleSubmit = () => {
-    router.post('/post_comments', form.value, { preserveState: false });
+    router.post('/post_comments', form.value, { preserveState: false, preserveScroll: true });
 };
 
 const formatDate = (date) => {
@@ -104,10 +104,10 @@ useFlashToast();
 <div class="card">
 <div class="card-body">
     <form method="post" @submit.prevent="handleSubmit">
-        <div class="mb-1 position-relative">
-            <textarea type="text" class="form-control" name="comment" placeholder="コメントを入力してください" v-model="form.comment" rows="4" style="padding-right: 50px;"></textarea>
-            <button type="submit" class="btn btn-success position-absolute bottom-0 end-0 mb-2 me-3">
-                <i class="fa-solid fa-paper-plane"></i>
+        <textarea type="text" class="form-control" name="comment" placeholder="コメントを入力してください" v-model="form.comment" rows="4" style="padding-right: 50px;"></textarea>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-success mt-1">
+                コメント送信
             </button>
         </div>
         <div v-if="errors.comment" class="error">
